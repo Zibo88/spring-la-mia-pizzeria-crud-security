@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link th:replace="~{fragments :: css}"></link>
+<link th:replace="~{fragments :: bootstrap}"></link>
+<title>Le nostre pizze</title>
+
+</head>
+<body>
+	<div>
+		
+		<div class="container">
+			<div th:insert="~{fragments :: link}" class="me-3"></div>
+			<h1 th:text="'La nostra' +' '+${pizza.nome}"></h1>
+			
+			<div class="row">
+				<div class="col">
+					<div class="card my-3 p-2">
+						<h3 th:text="${pizza.getNome()}"></h3>
+						
+						<div>Descrizione:</div>
+						<div class="mb-3" th:text="${pizza.getDescrizione()}"></div>
+						
+						
+						<div th:if="${pizza != null }" >
+							<a class="btn btn-success" th:href="@{|/offer/create?pizzaId=${pizza.getId()}|}" sec:authorize="hasAuthority('admin')">Aggiungi offerta</a>
+								
+							<div class="mt-3"> 
+								Offerte attuali:
+    							<ul  th:each="offer : ${pizza.offers}" >
+									
+									<li class="mb-2" style="list-style-type: circle;"
+									 th:text="${offer.title} + ' ' + 'dal:' +' '+ ${offer.startDate} + ' ' + 'al:' + ${offer.endDate}" 
+									 > 
+									</li>
+									
+									<div class="d-flex align-items-center"> 
+										<a class="btn btn-primary  me-3" sec:authorize="hasAuthority('admin')" th:href="@{/offer/edit/{id}(id=${offer.id})}"> Modifica offerta</a> 
+										<form  th:action="@{/offer/delete/{id}(id=${ offer.id })}" method="post" >
+											<input type="submit" value="cancella" class="btn btn-danger" sec:authorize="hasAuthority('admin')">
+										</form>
+									</div>
+									
+								</ul>
+  
+							</div>
+	
+							<div th:if="${pizza.offers.size() == 0}">
+								<div>Nessuna offerta presente, clicca sul link per aggiungerne una</div>
+								<a th:href="@{|/offer/create?pizzaId=${pizza.getId()}|}" th:classAppend="${pizza.offers.size()} > 0 ? disabled : ' ' ">Nuova offerta</a>
+							</div>
+    					
+						</div>
+						
+						<div class="mt-3" >
+							Ingredienti:
+							<ul th:each="ingredient : ${pizza.ingredients}" >
+								<li style="list-style-type: circle;" th:text="${ingredient.name}"></li>
+							</ul>
+							<a class="btn btn-primary" th:href="@{/pizza/edit/{id}(id=${pizza.id})}" sec:authorize="hasAuthority('admin')">Modifica ingredienti</a>
+						</div>
+						
+						
+						<img class="mt-3" th:src="${pizza.getFoto()}"></img>
+						
+						<div class="d-flex my-3 align-items-center">
+							<div th:text="'Prezzo:' +' '+${pizza.getPrezzo()}+ '€'"></div>
+							<a class="btn btn-primary mx-3" th:href="@{/pizza/edit/{id}(id=${pizza.getId()})}" sec:authorize="hasAuthority('admin')">Modifica</a>
+							<form th:action="@{/pizza/delete/{id}(id=${pizza.id})}" method="post" sec:authorize="hasAuthority('admin')">
+								<input type="submit" id="submitButton" class="btn btn-danger" value="cancella" >
+							</form>
+							<a class="btn btn-secondary mx-3" th:href="@{/pizza}">Annulla</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:insert="~{fragments :: bootstrapScript}"></div>
+</body>
+</html>

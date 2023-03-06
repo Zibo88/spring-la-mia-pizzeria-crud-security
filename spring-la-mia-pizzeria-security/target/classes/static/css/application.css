@@ -1,0 +1,38 @@
+
+/*Common */
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+ul{
+	list-style-type: none;
+	
+}
+
+li{
+	padding-top: 1rem;
+}
+
+div a {
+	text-decoration: none;
+}
+
+img{
+	width: 100%;
+	
+}
+
+.verde{
+	color: greenyellow;
+}
+
+.create-container{
+	width: 50%;
+	margin:0 auto;
+}
+
+.create-input{
+	width: 70%;
+}

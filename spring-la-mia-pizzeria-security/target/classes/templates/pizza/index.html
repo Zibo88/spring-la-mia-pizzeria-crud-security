@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Le nostre pizze</title>
+<link th:replace="~{fragments :: css}">
+<link th:replace="~{fragments :: bootstrap}"></link>
+
+</head>
+<body>
+	
+	<div class="container">
+			
+			<a th:href="@{/logout}">Logout</a>
+			<div class="d-flex align-items-center justify-content-between">
+				<div th:insert="~{fragments :: link}" class="mr-3"></div>
+				<div>
+		 			<form method="GET" action="/pizza">
+      					<label for="keyword" >Ricerca la tua pizza:</label>
+      					<input  style="border-radius: 10px;" type="text" id="keyword" name="keyword">
+      					<input class="btn btn-primary p-1" type="submit" value="Invia">
+    				</form>
+				</div>
+			</div>
+			
+			<h1 class="verde">Le Nostre Pizze</h1>
+			
+		<div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 ">
+			<div class="col-6" th:each="pizza:${elencoPizze}">
+				<div class="card mt-3 p-2" >
+					<a th:href="@{/pizza/{id}(id=${pizza.getId()})}">
+						<h4 th:text="${pizza.nome}"></h4>
+					</a>
+					<img style="height: 165px; border-radius: 10px;" th:src="${pizza.foto}" />
+					<div th:if="${#strings.length(pizza.descrizione) > 40}" th:text="${#strings.substring(pizza.descrizione, 0 ,40) + '...'}"></div>
+					<div th:unless="${#strings.length(pizza.descrizione) > 40}"  th:text="${pizza.descrizione}"></div>
+				
+					<div th:text="'prezzo' +' '+${pizza.prezzo}+'€'"></div>		
+					<div>
+						<div class="d-flex mt-3" >
+							<a class="btn btn-primary me-3 " th:href="@{/pizza/edit/{id}(id=${pizza.id})}" sec:authorize="hasAuthority('admin')">Modifica</a>
+							
+							
+							<form th:action="@{/pizza/delete/{id}(id=${pizza.id})}" method="post">
+								<input type="submit" id="submitButton" class="btn btn-danger" value="cancella" sec:authorize="hasAuthority('admin')">
+							</form>
+						</div>
+					</div>		
+				</div>
+			</div>
+			
+		</div>
+
+	</div>
+
+	<div th:insert="~{fragments :: bootstrapScript}"></div>
+</body>
+</html>

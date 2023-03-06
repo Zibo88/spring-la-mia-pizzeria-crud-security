@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <title>Create</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form id="book-form" method="post" onsubmit="createPizza(event)">
+                    <div>
+                        <label for="nome">Nome</label> <br>
+                        <input type="text" id="nome">
+                    </div>
+                    <div>
+                        <label for="descrizione">Descrizione</label>  <br>
+                        <textarea name="" id="descrizione" cols="30" rows="10"></textarea>
+                    </div>
+                    <div>
+                        <label for="foto">Foto</label> <br>
+                       <input type="text" id="foto">
+                    </div>
+                    <div>
+                        
+                        <label for="ingredients">Ingredients</label>  <br>
+                        <input type="checkbox" name="" id="ingredients" value="">
+                    </div>
+                    <div>
+                        <label for="prezzo">Prezzo</label>  <br>
+                        <input type="number" name="" id="prezzo">
+                    </div>
+
+                    <input class="btn btn-success my-3" type="submit" value="invia">
+                    <a class="btn btn-secondary my-3" href="./index.html"> Torna alla home</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="js/create.js"></script>
+</body>
+</html>

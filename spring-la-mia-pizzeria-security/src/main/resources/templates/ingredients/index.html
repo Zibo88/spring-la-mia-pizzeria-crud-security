@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Le nostre pizze</title>
+<link th:replace="~{fragments :: bootstrap}">
+<link th:replace="~{fragments :: css}">
+</head>
+<body>
+	<div>
+		<div class="container">
+			<div th:insert="~{fragments :: link}" class="mr-3"></div>
+			<h1>I nostri ingredienti</h1>
+			<a class="btn btn-success" th:href="@{/ingredients/create}"> Inserisci un nuovo ingrediente</a>
+
+			<div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+				<div class="col-6" th:each="ingredient : ${allIngredients}">
+					<div class="card p-3 mt-3" >
+					
+							<div th:text="${ingredient.name}"></div>
+							<div class="d-flex align-items-center justify-content-between">
+								<span><a class="btn btn-primary" th:href="@{/ingredients/edit/{id}(id=${ingredient.id})}">Modifica</a> </span>
+								<form th:action="@{/ingredients/delete/{id}(id=${ingredient.id})}" method="post">
+								<input type="submit" id="deleteIngredient" class="btn btn-danger" value="cancella">
+								</form>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div> 
+	
+	<div th:insert="fragments ::script"></div></body>
+</html>

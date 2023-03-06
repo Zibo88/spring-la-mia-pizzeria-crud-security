@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Form create</title>
+<link th:replace="~{fragments :: bootstrap}">
+<link th:replace="~{fragments :: css}">
+</head>
+<body>
+	
+	<div>
+		<div class="container">
+			<h1>Inserisci il nuovo ingrediente</h1>
+			<div class="row">
+				<div class="col-3">
+					<form th:object="${newIngredient}" th:action="@{/ingredients/create}" id="ingredients-form" method="post">
+						<div class="my-3 me-3" >
+							<label for="name">Nome</label>
+							<input type="text" id="name" th:field="*{name}" class="form-control">
+							<div th:if"${#fields.hasErrors('name')}" class="invalid-feedback">
+							<div  th:each="err: ${#fields.errors('name')}" th:text="${err}"></div>
+						</div>
+						<input class="btn btn-primary my-3" type="submit" value="invia">
+						<a class="btn btn-secondary my-3" th:href="@{/ingredients}">Annulla</a>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+	</div>
+	
+	
+	<div th:insert="fragments ::script"></div>
+</body>
+</html>

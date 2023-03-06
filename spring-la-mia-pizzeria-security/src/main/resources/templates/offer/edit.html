@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Form create</title>
+<link th:replace="~{fragments :: bootstrap}">
+<link th:replace="~{fragments :: css}">
+</head>
+<body>
+	
+	<div>
+		
+		<div class="container">
+			<div th:insert="~{fragments :: link}"></div>
+			
+			<div class="row">
+				<div class="col-12">
+				
+					<div class="create-container">
+						<h1>Modifica la tua Offerta</h1>
+						<form id="offer-form" th:object="${offerToUpdate}" th:action="@{/offer/edit/{id}(id=${offerToUpdate.id})}" method="POST">
+						
+						<input type="hidden" th:field="${offerToUpdate.pizza}">
+						
+						<div class="mt-4">
+							<label for="title">Titolo</label> <br>
+							<input type="text" id="title" th:field="*{title}" th:errorClass="is-invalid" class="form-control">
+							<div th:if"${#fields.hasErrors('title')}" class="invalid-feedback">
+								<div th:each="err: ${#fields.errors('title')}" th:text="${err}"></div>
+							</div>
+						</div>
+						
+						<div class="mt-4">
+							<label for="startDate">start Date</label> <br>
+							<textarea id="startDate" th:field="*{startDate}"  th:errorClass="is-invalid" class="form-control"></textarea>
+							<div th:if"${#fields.hasErrors('startDate')}" class="invalid-feedback">
+								<div th:each="err: ${#fields.errors('startDate')}" th:text="${err}"></div>
+							</div>
+						</div>
+						
+						<div class="mt-4">
+							<label for="endDate">endDate</label> <br>
+							<input type="text" id="endDate" th:field="*{endDate}"  th:errorClass="is-invalid" class="form-control">
+							<div th:if"${#fields.hasErrors('endDate')}" class="invalid-feedback">
+								<div th:each="err: ${#fields.errors('endDate')}" th:text="${err}"></div>
+							</div>
+						</div>
+					
+						
+						<div class="d-flex align-items-center mt-3">
+							<input class="btn btn-primary me-3" type="submit" value="invia">
+							<a class="btn btn-secondary" th:href="@{/pizza}">Annulla</a>
+						</div>
+						
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div th:insert="fragments::script"></div>
+</body>
+</html>
